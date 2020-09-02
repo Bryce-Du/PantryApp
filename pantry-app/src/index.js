@@ -8,12 +8,12 @@ import thunk from 'redux-thunk'
 import * as serviceWorker from './serviceWorker';
 import rootReducer from './reducers/index'
 
-const store = createStore()
+const store = createStore(rootReducer, applyMiddleware(thunk))
 
 ReactDOM.render(
-  <React.StrictMode>
+  <Provider store={store}>
     <App />
-  </React.StrictMode>,
+  </Provider>,
   document.getElementById('root')
 );
 
