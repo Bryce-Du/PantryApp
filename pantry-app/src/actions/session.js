@@ -24,6 +24,8 @@ export const logIn = (user) => {
             body: JSON.stringify({user})
         })
         .then(res => res.json())
-        .then(userObj => dispatch({type: "LOGIN", payload: userObj}))
+        .then(userObj => {
+            dispatch({type: "LOGIN", payload: userObj})
+        })
     }
 }

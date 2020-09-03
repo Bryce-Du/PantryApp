@@ -28,15 +28,12 @@ class UserForm extends React.Component{
     
     render(){
         return (
-            <>
-            {/* <form className="form" onSubmit={this.handleSubmit}> */}
+            <div className="form py-2">
+                <h3>Login or Sign Up below:</h3>
                 <label>Username: <input onChange={this.handleChange} type="text" name="username" value={this.state.username} autoComplete="off"/></label><br/>
                 <label>Password: <input onChange={this.handleChange} type="password" name="password" value={this.state.password}/></label><br/>
                 <input type="submit" value="Sign Up" onClick={this.handleSignUp}/>{"   |   "}<input type="submit" value="Log In" onClick={this.handleLogIn}/>
-                
-                
-            {/* </form> */}
-            </>
+            </div>
         )
     }
 }

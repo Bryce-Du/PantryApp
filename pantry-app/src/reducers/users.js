@@ -1,9 +1,9 @@
 export default (state = {}, action) => {
     switch (action.type){
         case "SIGNUP":
-            return {user: action.payload.username}
+            return {...state, user: action.payload.user}
         case "LOGIN":
-            return {user: action.payload.username}
+            return {...state, user: action.payload.user}
         default:
             return state
     }
