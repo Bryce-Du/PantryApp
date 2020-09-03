@@ -1,13 +1,14 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import signUp from '../actions/session.js'
+import {signUp, logIn} from '../actions/session.js'
 
 class UserForm extends React.Component{
     state = {
-        username: '',
-        password: ''
+        user: {username: '',
+        password: ''},
+        type: ''
     }
-    
+
     handleChange = event => {
         let key = event.target.name
         let value = event.target.value
@@ -18,8 +19,15 @@ class UserForm extends React.Component{
     
     handleSubmit = event => {
         event.preventDefault()
-        console.log(this.state)
-        this.props.dispatchedSignUp(this.state)
+        console.log(this.state.user)
+        if (this.state.type === "Sign Up"){
+            this.props.dispatchedSignUp(this.state.user)
+        } else if (this.state.type === "Log In"){
+            this.props.dispatchedLogIn(this.state.user)
+        }
+    }
+    handleInputType = event => {
+        this.setState({...this.state, type: event.target.value})
     }
     
     render(){
@@ -27,14 +35,24 @@ class UserForm extends React.Component{
             <form className="form" onSubmit={this.handleSubmit}>
                 <label>Username: <input onChange={this.handleChange} type="text" name="username" value={this.state.username} autoComplete="off"/></label><br/>
                 <label>Password: <input onChange={this.handleChange} type="password" name="password" value={this.state.password}/></label><br/>
-                <input type="submit" value="Sign Up"/>
+                <input type="submit" value="Sign Up" onClick={this.handleInputType}/>{"   |   "}<input type="submit" value="Log In" onClick={this.handleInputType}/>
+                {/* <button onClick={e => {
+                    e.preventDefault()
+                    console.log("blip")
+                    if (this.type === "Log In"){this.type = "Sign Up"}
+                    else if (this.type === "Sign Up"){this.type = "Log In"} 
+                }}>{this.type === "Log In" ? "Register New User" : "Log In"}</button> */}
+                
             </form>
         )
     }
 }
 
 const mDTP = (dispatcher) => {
-    return {dispatchedSignUp: user => dispatcher(signUp(user))}
+    return {
+        dispatchedSignUp: user => dispatcher(signUp(user)),
+        dispatchedLogIn: user => dispatcher(logIn(user))
+    }
 }
 
 export default connect(null, mDTP)(UserForm)
