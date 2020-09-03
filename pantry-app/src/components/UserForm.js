@@ -4,9 +4,8 @@ import {signUp, logIn} from '../actions/session.js'
 
 class UserForm extends React.Component{
     state = {
-        user: {username: '',
-        password: ''},
-        type: ''
+        username: '',
+        password: ''
     }
 
     handleChange = event => {
@@ -17,33 +16,27 @@ class UserForm extends React.Component{
         })
     }
     
-    handleSubmit = event => {
+    handleSignUp = event => {
         event.preventDefault()
-        console.log(this.state.user)
-        if (this.state.type === "Sign Up"){
-            this.props.dispatchedSignUp(this.state.user)
-        } else if (this.state.type === "Log In"){
-            this.props.dispatchedLogIn(this.state.user)
-        }
+        this.props.dispatchedSignUp(this.state)
     }
-    handleInputType = event => {
-        this.setState({...this.state, type: event.target.value})
+    handleLogIn = event => {
+        event.preventDefault()
+        this.props.dispatchedLogIn(this.state)
     }
+
     
     render(){
         return (
-            <form className="form" onSubmit={this.handleSubmit}>
+            <>
+            {/* <form className="form" onSubmit={this.handleSubmit}> */}
                 <label>Username: <input onChange={this.handleChange} type="text" name="username" value={this.state.username} autoComplete="off"/></label><br/>
                 <label>Password: <input onChange={this.handleChange} type="password" name="password" value={this.state.password}/></label><br/>
-                <input type="submit" value="Sign Up" onClick={this.handleInputType}/>{"   |   "}<input type="submit" value="Log In" onClick={this.handleInputType}/>
-                {/* <button onClick={e => {
-                    e.preventDefault()
-                    console.log("blip")
-                    if (this.type === "Log In"){this.type = "Sign Up"}
-                    else if (this.type === "Sign Up"){this.type = "Log In"} 
-                }}>{this.type === "Log In" ? "Register New User" : "Log In"}</button> */}
+                <input type="submit" value="Sign Up" onClick={this.handleSignUp}/>{"   |   "}<input type="submit" value="Log In" onClick={this.handleLogIn}/>
                 
-            </form>
+                
+            {/* </form> */}
+            </>
         )
     }
 }
