@@ -8,6 +8,7 @@ class Sidebar extends React.Component {
                 <h3>Hello, {this.props.user.username}!</h3>
                 <Link to="/"><button>Dashboard</button></Link><br/>
                 <Link to="/recipes"><button>View Recipes</button></Link>
+                <Link to="/ingredients"><button>View Ingredients</button></Link>
             </div>
         )
     }

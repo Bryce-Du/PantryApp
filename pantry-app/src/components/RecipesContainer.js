@@ -11,9 +11,8 @@ class RecipesContainer extends React.Component {
     
     render(){
         return (
-            <div>
-                
-                <div className="card-deck">{this.props.recipes ? this.props.recipes.map(recipe => <RecipeCard key={recipe.id} recipe={recipe}/>) : ""}</div>
+            <div className="card-deck">
+                {this.props.recipes ? this.props.recipes.map(recipe => <RecipeCard key={recipe.id} recipe={recipe}/>) : ""}
             </div>
         )
     }

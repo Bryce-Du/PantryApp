@@ -1,5 +1,5 @@
 export default (state = {recipes: []}, action) => {
-    let recipe;
+    //let recipe;
 
     switch (action.type){
         case "ADD_RECIPES":
