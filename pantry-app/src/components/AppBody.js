@@ -6,7 +6,7 @@ import RecipesContainer from './RecipesContainer'
 class AppBody extends React.Component {
     render(){
         return (
-            <div class="AppBody col-9">
+            <div className="AppBody col-9">
                 <Route path="/">
                     {this.props.user ? <div><p>dashboard for {this.props.user.username}</p></div> : ""}
                 </Route>
@@ -19,6 +19,7 @@ class AppBody extends React.Component {
 }
 
 const mSTP = (state) => {
+    console.log(state)
     return {user: state.usersReducer.user}
 }
 

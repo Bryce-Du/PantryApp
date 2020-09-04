@@ -7,7 +7,7 @@ class UserForm extends React.Component{
         username: '',
         password: ''
     }
-
+    
     handleChange = event => {
         let key = event.target.name
         let value = event.target.value
