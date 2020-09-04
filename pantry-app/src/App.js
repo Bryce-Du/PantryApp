@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import TopNavbar from './components/TopNavbar';
 import { Route } from 'react-router-dom'
 import AppBody from './components/AppBody'
+import Sidebar from './components/Sidebar';
 
 class App extends React.Component {
   render(){
@@ -12,7 +13,7 @@ class App extends React.Component {
       <div className="App">
         <TopNavbar />
         <div className="row">
-          <div className="col-3 text-align-right bg-secondary vh-100">{this.props.user ? <h1>Hello {this.props.user.username}!</h1> : <UserForm />}</div>
+          <div className="col-3 text-align-right bg-secondary vh-100">{this.props.user ? <Sidebar user={this.props.user}/> : <UserForm />}</div>
           <AppBody />
         </div>
       </div>

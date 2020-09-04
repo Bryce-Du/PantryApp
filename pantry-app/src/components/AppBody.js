@@ -7,11 +7,11 @@ class AppBody extends React.Component {
     render(){
         return (
             <div className="AppBody col-9">
-                <Route path="/">
+                <Route exact path="/">
                     {this.props.user ? <div><p>dashboard for {this.props.user.username}</p></div> : ""}
                 </Route>
                 <Route path="/recipes">
-                    <RecipesContainer />
+                    {this.props.user ? <RecipesContainer /> : <p>Please log in to see Recipes.</p>}
                 </Route>
             </div>
         )
@@ -19,7 +19,6 @@ class AppBody extends React.Component {
 }
 
 const mSTP = (state) => {
-    console.log(state)
     return {user: state.usersReducer.user}
 }
 
