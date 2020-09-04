@@ -13,14 +13,13 @@ class RecipesContainer extends React.Component {
         return (
             <div>
                 
-                <div className="card-deck">{this.props.recipes.map(recipe => <RecipeCard key={recipe.id} recipe={recipe}/>)}</div>
+                <div className="card-deck">{this.props.recipes ? this.props.recipes.map(recipe => <RecipeCard key={recipe.id} recipe={recipe}/>) : ""}</div>
             </div>
         )
     }
 }
 
 const mSTP = (state) => {
-    debugger
     return {
         recipes: state.recipesReducer.recipes,
         user: state.usersReducer.user

@@ -10,7 +10,7 @@ export const signUp = (user) => {
             body: JSON.stringify({user})
         })
         .then(res => res.json())
-        .then(userObj => dispatch({type: "SIGNUP", payload: userObj}))
+        .then(userObj => dispatch({type: "SIGNUP", payload: userObj.data.attributes}))
     }
 }
 export const logIn = (user) => {
@@ -25,7 +25,7 @@ export const logIn = (user) => {
         })
         .then(res => res.json())
         .then(userObj => {
-            dispatch({type: "LOGIN", payload: userObj})
+            dispatch({type: "LOGIN", payload: userObj.data.attributes})
         })
     }
 }
