@@ -1,14 +1,18 @@
 import React from 'react';
-import {Link} from 'react-router-dom'
+import {NavLink} from 'react-router-dom'
 
 class Sidebar extends React.Component {
+    handleIsActive = (match) => {
+        console.log(match) 
+    }
+
     render(){
         return (
             <div>
                 <h3>Hello, {this.props.user.username}!</h3>
-                <Link to="/"><button>Dashboard</button></Link><br/>
-                <Link to="/recipes"><button>View Recipes</button></Link>
-                <Link to="/ingredients"><button>View Ingredients</button></Link>
+                <NavLink exact to="/" className="btn btn-light" activeClassName="text-info">Dashboard</NavLink><br/>
+                <NavLink to="/recipes" className="btn btn-light" activeClassName="text-info">View Recipes</NavLink><br/>
+                <NavLink to="/ingredients" className="btn btn-light" activeClassName="text-info">View Ingredients</NavLink>
             </div>
         )
     }

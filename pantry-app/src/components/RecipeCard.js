@@ -9,7 +9,7 @@ export default function RecipeCard (props) {
             <div className="card-body">
                 
                 <ul className="list-group list-group-flush">Ingredients:
-                    {props.recipe.attributes.ingredients.map(ingredient => <IngredientListLink ingredient={ingredient}/>)}
+                    {props.recipe.attributes.ingredients.map(ingredient => <IngredientListLink key={ingredient.id} ingredient={ingredient}/>)}
                 </ul>
             </div>
         </div>

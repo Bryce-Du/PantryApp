@@ -7,7 +7,7 @@ import IngredientsContainer from './IngredientsContainer'
 class AppBody extends React.Component {
     render(){
         return (
-            <div className="AppBody">
+            <div className="AppBody px-5 py-2">
                 <Route exact path="/">
                     {this.props.user ? <div><p>dashboard for {this.props.user.username}</p></div> : ""}
                 </Route>
