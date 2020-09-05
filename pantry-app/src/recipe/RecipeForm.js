@@ -1,7 +1,8 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { addRecipe } from 'actions/recipes'
-import IngredientAddForm from '../ingredient/IngredientAddForm'
+import RecipeInputs from './RecipeInputs'
+import IngredientInputsContainer from '../ingredient/IngredientInputsContainer'
 
 class RecipeForm extends React.Component {
     state = {
@@ -9,12 +10,17 @@ class RecipeForm extends React.Component {
             name: '',
             instructions: ''
         },
-        ingredients: [],
-        ingredientInputs: [] 
+        ingredients: [
+            {
+                name: "",
+                quantity: ""
+            }
+        ]
     }
     handleRecipeChange = (event) => {
         let key = event.target.name
         let value = event.target.value
+        console.log({[key]: value})
         this.setState({
             ...this.state,
             recipe: {
@@ -25,47 +31,36 @@ class RecipeForm extends React.Component {
     handleIngredientChange = (event) => {
         let key = event.target.name
         let value = event.target.value
-        let index = event.target.id-1
-        let ingredient = {
-            ...this.state.ingredients[index],
-            [key]: value
-        }
-        this.setState({
-            ...this.state,
-            ingredients: this.state.ingredients.concat(ingredient)
+        let i = event.target.id-1
+        console.log({[key]: value})
+        console.log(this.state)
+        this.setState((prevState) => {
+            const ingrs = prevState.ingredients.map((ingr, j) => {
+                if (i === j){
+                    return {[key]: value}
+                } else {
+                    return ingr
+                }
+            })
+            return {
+                ...this.state,
+                ingredients: ingrs
+            }
         })
+        
     }
-    handleAddIngredientInput = (event) => {
-        event.preventDefault()
-        let id = this.state.ingredientInputs.length+1
-        this.setState({
-            ...this.state,
-            ingredientInputs: this.state.ingredientInputs.concat(<IngredientAddForm key={id} id={id} value={this.state.ingredients[id-1]} handleChange={this.handleIngredientChange} handleRemove={this.handleRemoveIngredientInput}/>)
-        })
-    }
-    handleRemoveIngredientInput = (event) => {
-        event.preventDefault()
-        let id = event.target.id.split("-")[2]
-        this.setState({
-            ...this.state,
-            ingredientInputs: this.state.ingredientInputs.filter(input => input.key !== id)
-        })
-    }
+    
     handleSubmit = (event) => {
         event.preventDefault()
         this.props.dispatchedAddRecipe(this.state)
     }
     render(){
-        
-        
         return(
             <form onSubmit={this.handleSubmit} autoComplete="off">
                 <h2>Create a new Recipe:</h2>
-                <label>Name: <input type="text" name="name" value={this.state.recipe.name} onChange={this.handleRecipeChange}/></label><br/>
-                <label>Instructions: <textarea name="instructions" value={this.state.recipe.instructions} onChange={this.handleRecipeChange}/></label><br/>
-                <h6>Add Ingredients:</h6>
-                {this.state.ingredientInputs}
-                <button onClick={this.handleAddIngredientInput}>Add more Ingredients</button>
+                <RecipeInputs recipe={this.state.recipe} handleChange={this.handleRecipeChange}/>
+                <IngredientInputsContainer ingredients={this.state.ingredients} handleChange={this.handleIngredientChange}/>
+                
             </form>
         )
     }
