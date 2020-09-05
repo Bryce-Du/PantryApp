@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Route } from 'react-router-dom'
-import RecipesContainer from './RecipesContainer'
-import IngredientsContainer from './IngredientsContainer'
+import RecipesContainer from '../recipe/RecipesContainer'
+import IngredientsContainer from '../ingredient/IngredientsContainer'
 
 class AppBody extends React.Component {
     render(){

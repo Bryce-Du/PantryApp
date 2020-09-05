@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { addRecipe } from '../actions/recipes'
-import IngredientAddForm from './IngredientAddForm'
+import { addRecipe } from 'actions/recipes'
+import IngredientAddForm from '../ingredient/IngredientAddForm'
 
 class RecipeForm extends React.Component {
     state = {

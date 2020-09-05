@@ -1,5 +1,5 @@
 import React from 'react'
-import IngredientListLink from './IngredientListLink'
+import IngredientListLink from '../ingredient/IngredientListLink'
 
 export default function RecipeCard (props) {
     return (
