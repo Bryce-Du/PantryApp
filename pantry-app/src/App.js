@@ -1,11 +1,11 @@
 import React from 'react';
 import './App.css';
-import UserForm from './components/UserForm.js'
+import UserForm from './components/user/UserForm.js'
 import { connect } from 'react-redux';
-import TopNavbar from './components/TopNavbar';
+import TopNavbar from './components/navigation/TopNavbar';
 import { Route } from 'react-router-dom'
 import AppBody from './components/AppBody'
-import Sidebar from './components/Sidebar';
+import Sidebar from './components/navigation/Sidebar';
 
 class App extends React.Component {
   render(){
