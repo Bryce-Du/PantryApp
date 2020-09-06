@@ -75,7 +75,8 @@ class RecipeForm extends React.Component {
                         ingredients={this.state.ingredients} 
                         handleChange={this.handleIngredientChange} 
                         handleAdd={this.handleAddIngredientInput} 
-                        handleRemove={this.handleRemoveIngredientInput} 
+                        handleRemove={this.handleRemoveIngredientInput}
+                        readonly={false} 
                     />
                     <br/><input type="submit" value="Add Recipe"/>
                 </form>

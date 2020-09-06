@@ -4,6 +4,8 @@ import { fetchIngredients } from '../actions/ingredients'
 import IngredientListLink from './IngredientListLink'
 import { Route, Switch } from 'react-router-dom';
 import IngredientShow from './IngredientShow'
+import IngredientInput from './IngredientInput';
+import IngredientInputsContainer from './IngredientInputsContainer';
 
 class IngredientsContainer extends React.Component {
     componentDidMount(){
@@ -15,9 +17,7 @@ class IngredientsContainer extends React.Component {
             <div>
                 <Switch>
                     <Route exact path="/ingredients">
-                        <ul>
-                            {this.props.ingredients ? this.props.ingredients.map(ingredient => <IngredientListLink key={ingredient.id} ingredient={ingredient.attributes}/>) : ""}
-                        </ul>
+                        <IngredientInputsContainer ingredients={this.props.ingredients.map(i => i.attributes)} readonly={true}/>
                     </Route>
                     <Route 
                         path="/ingredients/:id"
