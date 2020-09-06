@@ -1,5 +1,6 @@
 export const fetchRecipes = () => {
     return function (dispatch) {
+        dispatch({type: "PROCESSING"})
         fetch('http://localhost:3001/recipes')
         .then(res => res.json())
         .then(recipes => {
@@ -7,8 +8,9 @@ export const fetchRecipes = () => {
         })
     }
 }
-export const fetchUserRecipes = (userID) => {
+export const fetchUserRecipes = (userID) => { 
     return function (dispatch) {
+        dispatch({type: "PROCESSING"})
         fetch(`http://localhost:3001/users/${userID}/recipes`) 
         .then(res => res.json())
         .then(recipes => {
@@ -18,6 +20,7 @@ export const fetchUserRecipes = (userID) => {
 }
 export const addRecipe = (recipe, userID) => {
     return function (dispatch) {
+        dispatch({type: "PROCESSING"})
         fetch(`http://localhost:3001/users/${userID}/recipes`, {
             method: "POST",
             headers: {

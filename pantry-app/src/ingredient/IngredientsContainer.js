@@ -10,21 +10,24 @@ import IngredientInputsContainer from './IngredientInputsContainer';
 class IngredientsContainer extends React.Component {
     componentDidMount(){
         this.props.dispatchedFetchIngredients()
-    }
-    
+    }    
     render(){
+        let ingredient
         return (
             <div>
                 <Switch>
                     <Route exact path="/ingredients">
-                        <IngredientInputsContainer ingredients={this.props.ingredients.map(i => i.attributes)} readonly={true}/>
+                        {console.log("ingredient container props:", this.props)}
+                        {this.props.processing ? "fetching Ingredients, one moment" : <IngredientInputsContainer ingredients={this.props.ingredients} readonly={true}/>}
                     </Route>
+                    {console.log("ingredients in container:", this.props.ingredients)}
                     <Route 
                         path="/ingredients/:id"
-                        render={(routerProps) => <IngredientShow 
+                        render={(routerProps) => <IngredientInputsContainer 
                             {...routerProps} 
                             key={routerProps.match.params.id} 
-                            ingredient={this.props.ingredients ? this.props.ingredients.find(ingredient => ingredient.id === routerProps.match.params.id) : ""}
+                            ingredients={this.props.ingredients.find(i => i.id === routerProps.match.params.id)}
+                            readonly={true}
                         />}
                     />
                     
@@ -36,7 +39,8 @@ class IngredientsContainer extends React.Component {
 
 const mSTP = (state) => {
     return {
-        ingredients: state.ingredientsReducer.ingredients,
+        ingredients: state.ingredientsReducer.ingredients.map(i => i.attributes),
+        processing: state.ingredientsReducer.processing,
         user: state.usersReducer.user
     }
 }
