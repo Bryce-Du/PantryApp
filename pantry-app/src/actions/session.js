@@ -25,7 +25,9 @@ export const logIn = (user) => {
         })
         .then(res => res.json())
         .then(userObj => {
-            dispatch({type: "LOGIN", payload: userObj.data.attributes})
+            if(!!userObj.data){
+                dispatch({type: "LOGIN", payload: userObj.data.attributes})
+            }
         })
     }
 }

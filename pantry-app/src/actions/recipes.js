@@ -17,18 +17,19 @@ export const fetchUserRecipes = (userID) => {
         })
     }
 }
-export const addRecipe = (recipe) => {
+export const addRecipe = (recipe, userID) => {
     return function (dispatch) {
-        fetch(`http://localhost:3001/recipes`, {
+        fetch(`http://localhost:3001/users/${userID}/recipes`, {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json',
                 'Accepts': 'application/json'
             },
-            body: JSON.stringify({recipe})
+            body: JSON.stringify(recipe)
         })
         .then(res => res.json())
         .then(recipe => {
+            console.log(recipe.data)
             dispatch({type: "ADD_RECIPE", payload: recipe.data})
         })
     }

@@ -10,34 +10,30 @@ class RecipeForm extends React.Component {
             name: '',
             instructions: ''
         },
-        ingredients: [
-            {
-                name: "",
-                quantity: ""
-            }
-        ]
+        ingredients: [{
+            name: "",
+            quantity: ""
+        }]
     }
     handleRecipeChange = (event) => {
         let key = event.target.name
         let value = event.target.value
-        console.log({[key]: value})
-        this.setState({
-            ...this.state,
+        this.setState((pS)=>({
+            ...pS,
             recipe: {
+                ...pS.recipe,
                 [key]: value
             }
-        })
+        }))
     }
     handleIngredientChange = (event) => {
         let key = event.target.name
         let value = event.target.value
-        let i = event.target.id-1
-        console.log({[key]: value})
-        console.log(this.state)
+        let i = parseInt(event.target.id.split("-")[2])
         this.setState((prevState) => {
             const ingrs = prevState.ingredients.map((ingr, j) => {
                 if (i === j){
-                    return {[key]: value}
+                    return {...ingr, [key]: value}
                 } else {
                     return ingr
                 }
@@ -47,29 +43,52 @@ class RecipeForm extends React.Component {
                 ingredients: ingrs
             }
         })
-        
+    }
+    handleAddIngredientInput = (event) => {
+        event.preventDefault()
+        this.setState((pS)=>({
+            ...this.state,
+            ingredients: pS.ingredients.concat({name: "", quantity: ""})
+        }))        
+    }
+    handleRemoveIngredientInput = (event) => {
+        event.preventDefault()
+        let id = parseInt(event.target.id.split("-")[2])
+        this.setState((pS)=>({
+            ...this.state,
+            ingredients: pS.ingredients.filter((ingredient, index) => index !== id)
+        }))
+
     }
     
     handleSubmit = (event) => {
         event.preventDefault()
-        this.props.dispatchedAddRecipe(this.state)
+        let id = this.props.user.id
+        this.props.dispatchedAddRecipe(this.state, id)
     }
     render(){
         return(
             <form onSubmit={this.handleSubmit} autoComplete="off">
                 <h2>Create a new Recipe:</h2>
                 <RecipeInputs recipe={this.state.recipe} handleChange={this.handleRecipeChange}/>
-                <IngredientInputsContainer ingredients={this.state.ingredients} handleChange={this.handleIngredientChange}/>
-                
+                <IngredientInputsContainer 
+                    ingredients={this.state.ingredients} 
+                    handleChange={this.handleIngredientChange} 
+                    handleAdd={this.handleAddIngredientInput} 
+                    handleRemove={this.handleRemoveIngredientInput} 
+                />
+                <br/><input type="submit" value="Add Recipe"/>
             </form>
         )
     }
 }
-
+const mSTP = (state) => {
+    return {user: state.usersReducer.user}
+}
 const mDTP = (dispatcher) => {
     return {
-        dispatchedAddRecipe: recipe => dispatcher(addRecipe(recipe))
+        dispatchedAddRecipe: (recipe, userID) => dispatcher(addRecipe(recipe, userID))
     }
 }
 
-export default connect(null, mDTP)(RecipeForm)
+export default connect(mSTP, mDTP)(RecipeForm)
