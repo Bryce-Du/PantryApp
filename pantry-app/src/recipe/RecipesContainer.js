@@ -4,7 +4,7 @@ import { fetchUserRecipes } from '../actions/recipes'
 import RecipeCard from './RecipeCard'
 import RecipeForm from './RecipeForm'
 import RecipeShow from './RecipeShow'
-import { Route } from 'react-router-dom'
+import { Route, Switch } from 'react-router-dom'
 import {NavLink} from 'react-router-dom'
 
 class RecipesContainer extends React.Component {
@@ -28,17 +28,26 @@ class RecipesContainer extends React.Component {
             <div>
                 <NavLink exact to="/recipes" className="btn btn-md" activeClassName="text-info">Show All Recipes</NavLink>
                 <NavLink to="/recipes/new" className="btn btn-md" activeClassName="text-info">Create New Recipe</NavLink><br/>
-                <Route exact path="/recipes">
-                    <div className="container">
-                        <div className="flex-row d-flex flex-wrap">
-                            {this.props.recipes.map(recipe => <div className="px-2"><RecipeCard key={recipe.id} recipe={recipe}/></div>)}
+                <Switch>
+                    <Route exact path="/recipes">
+                        <div className="container">
+                            <div className="flex-row d-flex flex-wrap">
+                                {this.props.recipes.map((recipe, index) => <div key={index} className="px-2"><RecipeCard key={index} recipe={recipe}/></div>)}
+                            </div>
                         </div>
-                    </div>
-                </Route>    
-                <Route exact path="/recipes/new">
-                    <RecipeForm />
-                </Route>
-                <Route exact path="/recipe/:id" render={(routerProps) => <RecipeShow {...routerProps} key={routerProps.match.params.id} recipe={this.props.recipes.find(recipe => recipe.id === routerProps.match.params.id)}/>}/>
+                    </Route>    
+                    <Route path="/recipes/new">
+                        <RecipeForm />
+                    </Route>
+                    <Route 
+                        path="/recipes/:id" 
+                        render={(routerProps) => <RecipeShow 
+                            {...routerProps} 
+                            key={routerProps.match.params.id} 
+                            recipe={this.props.recipes.find(recipe => recipe.id === routerProps.match.params.id)}
+                        />}
+                    />
+                </Switch>
             </div>
         )
     }

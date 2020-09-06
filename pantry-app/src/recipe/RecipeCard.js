@@ -7,10 +7,10 @@ export default function RecipeCard (props) {
     
     const handleClick = (e) => {
         e.preventDefault()
-        history.push(`/recipe/${props.recipe.id}`)
+        history.push(`/recipes/${props.recipe.id}`)
     }
-    
     return (
+        
         <div className="card" onClick={handleClick}>
             <h5 className="card-header">{props.recipe.attributes.name}</h5>
             <div className="card-body">

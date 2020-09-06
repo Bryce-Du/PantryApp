@@ -3,7 +3,6 @@ export default (state = {recipes: []}, action) => {
 
     switch (action.type){
         case "INDEX_RECIPES":
-            console.log("state: ", state, "action: ", action)
             return {...state, recipes: action.payload}
         case "ADD_RECIPE":
             return {...state, recipes: state.recipes.concat(action.payload)}

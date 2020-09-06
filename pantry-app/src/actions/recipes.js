@@ -3,7 +3,6 @@ export const fetchRecipes = () => {
         fetch('http://localhost:3001/recipes')
         .then(res => res.json())
         .then(recipes => {
-            console.log(recipes.data)
             dispatch({type: "INDEX_RECIPES", payload: recipes.data})
         })
     }
@@ -29,7 +28,6 @@ export const addRecipe = (recipe, userID) => {
         })
         .then(res => res.json())
         .then(recipe => {
-            console.log(recipe.data)
             dispatch({type: "ADD_RECIPE", payload: recipe.data})
         })
     }
