@@ -9,6 +9,7 @@ import {NavLink} from 'react-router-dom'
 
 class RecipesContainer extends React.Component {
     componentDidMount(){
+        console.log(this.props.user)
         this.props.dispatchedFetchUserRecipes(this.props.user.id)
     }
 

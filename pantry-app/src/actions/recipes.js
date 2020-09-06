@@ -9,7 +9,7 @@ export const fetchRecipes = () => {
 }
 export const fetchUserRecipes = (userID) => {
     return function (dispatch) {
-        fetch(`http://localhost:3001/users/${userID}/recipes`)
+        fetch(`http://localhost:3001/users/${userID}/recipes`) 
         .then(res => res.json())
         .then(recipes => {
             dispatch({type: "INDEX_RECIPES", payload: recipes.data})

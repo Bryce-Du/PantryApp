@@ -6,6 +6,7 @@ import IngredientListLink from './IngredientListLink'
 
 class PantryContainer extends React.Component {
     componentDidMount(){
+        console.log(this.props.user)
         this.props.dispatchedFetchUserIngredients(this.props.user.id)
     }
     
