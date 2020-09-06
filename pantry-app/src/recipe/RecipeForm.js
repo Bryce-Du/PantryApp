@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { addRecipe } from 'actions/recipes'
+import { addRecipe } from '../actions/recipes'
 import RecipeInputs from './RecipeInputs'
 import IngredientInputsContainer from '../ingredient/IngredientInputsContainer'
 import { Redirect } from 'react-router-dom'

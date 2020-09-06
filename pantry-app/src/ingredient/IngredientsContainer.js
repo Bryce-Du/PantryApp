@@ -24,7 +24,7 @@ class IngredientsContainer extends React.Component {
                         render={(routerProps) => <IngredientShow 
                             {...routerProps} 
                             key={routerProps.match.params.id} 
-                            recipe={this.props.ingredients.find(ingredient => ingredient.id === routerProps.match.params.id)}
+                            ingredient={this.props.ingredients ? this.props.ingredients.find(ingredient => ingredient.id === routerProps.match.params.id) : ""}
                         />}
                     />
                     
