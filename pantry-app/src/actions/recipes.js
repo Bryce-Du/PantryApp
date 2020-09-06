@@ -25,7 +25,7 @@ export const addRecipe = (recipe, userID) => {
                 'Content-Type': 'application/json',
                 'Accepts': 'application/json'
             },
-            body: JSON.stringify(recipe)
+            body: JSON.stringify({recipe})
         })
         .then(res => res.json())
         .then(recipe => {

@@ -1,5 +1,6 @@
 import React from 'react';
 import {NavLink} from 'react-router-dom'
+import UserForm from '../user/UserForm';
 
 class Sidebar extends React.Component {
     handleIsActive = (match) => {
@@ -8,12 +9,16 @@ class Sidebar extends React.Component {
 
     render(){
         return (
-            <div>
+            this.props.user ?
+            <div className="col-3 text-align-right bg-secondary vh-100">
                 <h3>Hello, {this.props.user.username}!</h3>
-                <NavLink exact to="/" className="btn btn-light" activeClassName="text-info">Dashboard</NavLink><br/>
-                <NavLink to="/recipes" className="btn btn-light" activeClassName="text-info">View Recipes</NavLink><br/>
-                <NavLink to="/ingredients" className="btn btn-light" activeClassName="text-info">View Ingredients</NavLink>
+                <div className="list-group list-group-flush ml-3">
+                    <NavLink exact to="/" className="list-group-item list-group-item-action" activeClassName="bg-info">Dashboard</NavLink>
+                    <NavLink to="/recipes" className="list-group-item list-group-item-action" activeClassName="bg-info">View Recipes</NavLink>
+                    <NavLink to="/ingredients" className="list-group-item list-group-item-action" activeClassName="bg-info">View Ingredients</NavLink>
+                </div>
             </div>
+            : <div className="col-3 text-align-right bg-secondary vh-100"><UserForm /></div>
         )
     }
 }

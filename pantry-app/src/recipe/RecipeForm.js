@@ -3,27 +3,24 @@ import { connect } from 'react-redux'
 import { addRecipe } from 'actions/recipes'
 import RecipeInputs from './RecipeInputs'
 import IngredientInputsContainer from '../ingredient/IngredientInputsContainer'
+import { Redirect } from 'react-router-dom'
 
 class RecipeForm extends React.Component {
     state = {
-        recipe: {
-            name: '',
-            instructions: ''
-        },
+        name: '',
+        instructions: '',
         ingredients: [{
             name: "",
             quantity: ""
         }]
     }
+    redirect = false
     handleRecipeChange = (event) => {
         let key = event.target.name
         let value = event.target.value
         this.setState((pS)=>({
             ...pS,
-            recipe: {
-                ...pS.recipe,
-                [key]: value
-            }
+            [key]: value
         }))
     }
     handleIngredientChange = (event) => {
@@ -60,25 +57,28 @@ class RecipeForm extends React.Component {
         }))
 
     }
-    
     handleSubmit = (event) => {
         event.preventDefault()
         let id = this.props.user.id
         this.props.dispatchedAddRecipe(this.state, id)
+        this.redirect = true
+        this.forceUpdate()
     }
+
     render(){
         return(
-            <form onSubmit={this.handleSubmit} autoComplete="off">
-                <h2>Create a new Recipe:</h2>
-                <RecipeInputs recipe={this.state.recipe} handleChange={this.handleRecipeChange}/>
-                <IngredientInputsContainer 
-                    ingredients={this.state.ingredients} 
-                    handleChange={this.handleIngredientChange} 
-                    handleAdd={this.handleAddIngredientInput} 
-                    handleRemove={this.handleRemoveIngredientInput} 
-                />
-                <br/><input type="submit" value="Add Recipe"/>
-            </form>
+            this.redirect ? <Redirect to="/recipes" /> :
+                <form onSubmit={this.handleSubmit} autoComplete="off">
+                    <h2>Create a new Recipe:</h2>
+                    <RecipeInputs name={this.state.name} instructions={this.state.instructions} handleChange={this.handleRecipeChange}/>
+                    <IngredientInputsContainer 
+                        ingredients={this.state.ingredients} 
+                        handleChange={this.handleIngredientChange} 
+                        handleAdd={this.handleAddIngredientInput} 
+                        handleRemove={this.handleRemoveIngredientInput} 
+                    />
+                    <br/><input type="submit" value="Add Recipe"/>
+                </form>
         )
     }
 }

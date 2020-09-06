@@ -1,6 +1,5 @@
 import React from 'react';
 import './App.css';
-import UserForm from './user/UserForm.js'
 import { connect } from 'react-redux';
 import TopNavbar from './navigation/TopNavbar';
 import { Route } from 'react-router-dom'
@@ -13,7 +12,8 @@ class App extends React.Component {
       <div className="App">
         <TopNavbar />
         <div className="row">
-          <div className="col-3 text-align-right bg-secondary vh-100">{this.props.user ? <Sidebar user={this.props.user}/> : <UserForm />}</div>
+          <Sidebar user={this.props.user}/>
+          {/* {this.props.user ? <Sidebar user={this.props.user}/> : <UserForm />} */}
           <AppBody />
         </div>
       </div>
