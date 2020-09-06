@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Route } from 'react-router-dom'
 import RecipesContainer from '../recipe/RecipesContainer'
 import IngredientsContainer from '../ingredient/IngredientsContainer'
+import PantryContainer from '../ingredient/PantryContainer'
 
 class AppBody extends React.Component {
     render(){
@@ -16,6 +17,9 @@ class AppBody extends React.Component {
                 </Route>
                 <Route path="/ingredients">
                     {this.props.user ? <IngredientsContainer /> : <p>Please log in to see Ingredients.</p>}
+                </Route>
+                <Route path="/pantry">
+                    {this.props.user ? <PantryContainer /> : <p>Please log in to see your Pantry.</p>}
                 </Route>
             </div>
         )

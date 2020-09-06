@@ -3,8 +3,17 @@ export const fetchIngredients = () => {
         fetch('http://localhost:3001/ingredients')
         .then(res => res.json())
         .then(ingredients => {
+            dispatch({type: "INDEX_INGREDIENTS", payload: ingredients.data})
+        })
+    }
+}
+export const fetchUserIngredients = (userID) => {
+    return function (dispatch) {
+        fetch(`http://localhost:3001/users/${userID}/ingredients`)
+        .then(res => res.json())
+        .then(ingredients => {
             console.log("fetch request returns:", ingredients.data)
-            dispatch({type: "ADD_INGREDIENTS", payload: ingredients.data})
+            dispatch({type: "INDEX_INGREDIENTS", payload: ingredients.data})
         })
     }
 }

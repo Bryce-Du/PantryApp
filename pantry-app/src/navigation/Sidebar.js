@@ -16,6 +16,7 @@ class Sidebar extends React.Component {
                     <NavLink exact to="/" className="list-group-item list-group-item-action" activeClassName="bg-info">Dashboard</NavLink>
                     <NavLink to="/recipes" className="list-group-item list-group-item-action" activeClassName="bg-info">View Recipes</NavLink>
                     <NavLink to="/ingredients" className="list-group-item list-group-item-action" activeClassName="bg-info">View Ingredients</NavLink>
+                    <NavLink to="/pantry" className="list-group-item list-group-item-action" activeClassName="bg-info">View Pantry</NavLink>
                 </div>
             </div>
             : <div className="col-3 text-align-right bg-secondary vh-100"><UserForm /></div>
