@@ -2,7 +2,6 @@ import React from 'react';
 import './App.css';
 import { connect } from 'react-redux';
 import TopNavbar from './navigation/TopNavbar';
-import { Route } from 'react-router-dom'
 import AppBody from './components/AppBody'
 import Sidebar from './navigation/Sidebar';
 

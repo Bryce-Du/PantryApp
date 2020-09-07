@@ -13,7 +13,10 @@ class PantryContainer extends React.Component {
         console.log(this.props)
         return(
             <div>
-                {this.props.pantry.map(i => i.attributes.name)}
+                {this.props.pantry.map(i => {
+                    let q = i.attributes.users_ingredients[0].quantity
+                    return <IngredientListLink key={i.id} ingredient={i.attributes} quantity={q}/>
+                })}
             </div>
         )
     }
