@@ -12,23 +12,13 @@ class RecipesContainer extends React.Component {
         console.log("rContainer props: ", this.props)
         this.props.dispatchedFetchUserRecipes(this.props.user.id)
     }
-
-    // cardWrap = (recipe, index, array) => {
-    //     if (index%3 === 0) {
-            
-    //         return `<div className="row"><RecipeCard key=${recipe.id} recipe=${recipe}/>`
-    //     } else if (index%3 === 2 || index === array.length) {
-    //         return `<RecipeCard key=${recipe.id} recipe=${recipe}/></div>`
-    //     } else {
-    //         return `<RecipeCard key=${recipe.id} recipe=${recipe}/>`
-    //     }
-    // }
     
     render(){
         return (
             <div>
                 <NavLink exact to="/recipes" className="btn btn-md" activeClassName="text-info">Show All Recipes</NavLink>
-                <NavLink to="/recipes/new" className="btn btn-md" activeClassName="text-info">Create New Recipe</NavLink><br/>
+                <NavLink to="/recipes/new" className="btn btn-md" activeClassName="text-info">Create New Recipe</NavLink>
+                <NavLink to="/recipes/makeable" className="btn btn-md" activeClassName="text-info">What Can I Make?</NavLink><br/>
                 <Switch>
                     <Route exact path="/recipes">
                         {this.props.processing 
@@ -51,6 +41,9 @@ class RecipesContainer extends React.Component {
                             recipe={this.props.recipes.find(recipe => recipe.id === routerProps.match.params.id)}
                         />}
                     />
+                    <Route path="/recipes/makeable">
+
+                    </Route>
                 </Switch>
             </div>
         )
