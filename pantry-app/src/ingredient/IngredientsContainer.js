@@ -23,11 +23,8 @@ class IngredientsContainer extends React.Component {
                 index = pS.ingredients.findIndex(i => i.id === id)
             }
             if (!!existing) { // ingredient has already been changed and is in the state ingredient array
-                console.log("existing id found")
-                console.log("existing: ", existing, "index: ", index)
                 let newIngrs = pS.ingredients
                 newIngrs[index] = {id: existing.id, quantity}
-                console.log("new ingrs: ", newIngrs)
                 return {ingredients: newIngrs}
             } else {
                 return {
@@ -43,7 +40,6 @@ class IngredientsContainer extends React.Component {
         this.forceUpdate()
     }
     render(){
-        console.log("ingredients container state:", this.state)
         return (
             this.redirect ? <Redirect to="/pantry" /> :
             <div>
