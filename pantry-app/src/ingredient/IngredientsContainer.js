@@ -1,26 +1,64 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { fetchIngredients } from '../actions/ingredients'
-import IngredientListLink from './IngredientListLink'
-import { Route, Switch } from 'react-router-dom';
-import IngredientShow from './IngredientShow'
-import IngredientInput from './IngredientInput';
+import { fetchIngredients, addUserIngredients } from '../actions/ingredients'
+import { Route, Switch, Redirect } from 'react-router-dom';
 import IngredientInputsContainer from './IngredientInputsContainer';
 
 class IngredientsContainer extends React.Component {
+    state = {
+        ingredients: []
+    }
+    redirect = false
     componentDidMount(){
         this.props.dispatchedFetchIngredients()
-    }    
+    }
+    handleChange = (e) => {
+        let quantity = e.target.value
+        let id = parseInt(e.target.id.split("-")[2])
+        
+        this.setState((pS) => {
+            let existing, index
+            if(pS.ingredients.some(i => !!i.id)){ // array is empty
+                existing = pS.ingredients.find(i => i.id === id)
+                index = pS.ingredients.findIndex(i => i.id === id)
+            }
+            if (!!existing) { // ingredient has already been changed and is in the state ingredient array
+                console.log("existing id found")
+                console.log("existing: ", existing, "index: ", index)
+                let newIngrs = pS.ingredients
+                newIngrs[index] = {id: existing.id, quantity}
+                console.log("new ingrs: ", newIngrs)
+                return {ingredients: newIngrs}
+            } else {
+                return {
+                    ingredients: pS.ingredients.concat({id: id, quantity})
+                }
+            }
+        })
+    }
+    handleAdd = (e) => {
+        e.preventDefault()
+        this.props.dispatchedAddUserIngredients(this.state.ingredients, this.props.user.id)
+        this.redirect = true
+        this.forceUpdate()
+    }
     render(){
-        let ingredient
+        console.log("ingredients container state:", this.state)
         return (
+            this.redirect ? <Redirect to="/pantry" /> :
             <div>
                 <Switch>
                     <Route exact path="/ingredients">
-                        {console.log("ingredient container props:", this.props)}
-                        {this.props.processing ? "fetching Ingredients, one moment" : <IngredientInputsContainer ingredients={this.props.ingredients} readonly={true}/>}
+                        {this.props.processing 
+                            ? "fetching Ingredients, one moment" 
+                            : <IngredientInputsContainer 
+                                ingredients={this.props.ingredients} 
+                                handleChange={this.handleChange}
+                                handleAdd={this.handleAdd}
+                                readonly={true}
+                            />
+                        }
                     </Route>
-                    {console.log("ingredients in container:", this.props.ingredients)}
                     <Route 
                         path="/ingredients/:id"
                         render={(routerProps) => <IngredientInputsContainer 
@@ -46,7 +84,8 @@ const mSTP = (state) => {
 }
 const mDTP = (dispatcher) => {
     return {
-        dispatchedFetchIngredients: () => dispatcher(fetchIngredients())
+        dispatchedFetchIngredients: () => dispatcher(fetchIngredients()),
+        dispatchedAddUserIngredients: (ingredients, userID) => dispatcher(addUserIngredients(ingredients, userID))
     }
 }
 

@@ -6,17 +6,14 @@ import IngredientListLink from './IngredientListLink'
 
 class PantryContainer extends React.Component {
     componentDidMount(){
-        console.log(this.props)
         this.props.dispatchedFetchUserIngredients(this.props.user.id)
     }
     
     render(){
+        console.log(this.props)
         return(
             <div>
-                {this.props.ingredients ? this.props.ingredients.map(ingredient => {
-                    // let uI = this.props.user.users_ingredients.find(uI => uI.ingredient_id === ingredient.id)
-                    return <IngredientListLink key={ingredient.id} ingredient={ingredient} /*quantity={uI.quantity}*/ />
-                }) : "no ingredients found womp womp"}
+                {this.props.pantry.map(i => i.attributes.name)}
             </div>
         )
     }
@@ -25,7 +22,7 @@ class PantryContainer extends React.Component {
 const mSTP = (state) => {
     return {
         user: state.usersReducer.user,
-        ingredients: state.ingredientsReducer.ingredients
+        pantry: state.pantryReducer.pantry
     }
 }
 const mDTP = (dispatcher) => {

@@ -9,7 +9,7 @@ class IngredientInputsContainer extends React.Component {
                 {this.props.ingredients.map((ingredient, index) => {
                         return <IngredientInput 
                             key={index} 
-                            id={index} 
+                            id={ingredient.id}
                             ingredient={ingredient} 
                             handleChange={this.props.handleChange} 
                             handleRemove={this.props.handleRemove} 
