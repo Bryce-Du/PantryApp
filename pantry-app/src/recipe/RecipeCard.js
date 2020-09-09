@@ -9,11 +9,14 @@ export default function RecipeCard (props) {
         e.preventDefault()
         history.push(`/recipes/${props.recipe.id}`)
     }
+    const handleEdit = (e) => {
+        e.preventDefault()
+        history.push(`/recipes/${props.recipe.id}/edit`)
+    }
     return (
-        
-        <div className="card" onClick={handleClick}>
+        <div className="card">
             <h5 className="card-header">{props.recipe.attributes.name}</h5>
-            <div className="card-body">
+            <div className="card-body py-1" onClick={handleClick}>
                 <p>{props.recipe.attributes.instructions}</p>
                 <ul className="list-group py-1">Ingredients:
                     {props.recipe.attributes.ingredients.map(ingredient => {
@@ -21,6 +24,9 @@ export default function RecipeCard (props) {
                         return <IngredientListLink key={ingredient.id} ingredient={ingredient} quantity={rI.quantity}/>
                     })}
                 </ul>
+            </div>
+            <div className="card-footer py-1">
+                <button onClick={handleEdit}>Edit</button>
             </div>
         </div>
     )
