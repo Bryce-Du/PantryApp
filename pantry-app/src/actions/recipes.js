@@ -1,7 +1,9 @@
+import {BASE_URL} from '../index.js'
+
 export const fetchRecipes = () => {
     return function (dispatch) {
         dispatch({type: "PROCESSING"})
-        fetch('http://localhost:3001/recipes')
+        fetch(`${BASE_URL}/recipes`)
         .then(res => res.json())
         .then(recipes => {
             dispatch({type: "INDEX_RECIPES", payload: recipes.data})
@@ -11,7 +13,7 @@ export const fetchRecipes = () => {
 export const fetchUserRecipes = (userID) => { 
     return function (dispatch) {
         dispatch({type: "PROCESSING"})
-        fetch(`http://localhost:3001/users/${userID}/recipes`) 
+        fetch(`${BASE_URL}/users/${userID}/recipes`) 
         .then(res => res.json())
         .then(recipes => {
             dispatch({type: "INDEX_RECIPES", payload: recipes.data})
@@ -21,7 +23,7 @@ export const fetchUserRecipes = (userID) => {
 export const addRecipe = (recipe, userID) => {
     return function (dispatch) {
         dispatch({type: "PROCESSING"})
-        fetch(`http://localhost:3001/users/${userID}/recipes`, {
+        fetch(`${BASE_URL}/users/${userID}/recipes`, {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json',
@@ -38,7 +40,7 @@ export const addRecipe = (recipe, userID) => {
 export const updateRecipe = (recipe, userID, recipeID) => {
     return function (dispatch) {
         dispatch({type: "PROCESSING"})
-        fetch(`http://localhost:3001/users/${userID}/recipes/${recipeID}`, {
+        fetch(`${BASE_URL}/users/${userID}/recipes/${recipeID}`, {
             method: "PATCH",
             headers: {
                 'Content-Type': 'application/json',
@@ -55,7 +57,7 @@ export const updateRecipe = (recipe, userID, recipeID) => {
 export const deleteRecipe = (userID, recipeID) => {
     return function (dispatch) {
         dispatch({type: "PROCESSING"})
-        fetch(`http://localhost:3001/users/${userID}/recipes/${recipeID}`, {
+        fetch(`${BASE_URL}/users/${userID}/recipes/${recipeID}`, {
             method: "DELETE",
             headers: {
                 'Content-Type': 'application/json',
