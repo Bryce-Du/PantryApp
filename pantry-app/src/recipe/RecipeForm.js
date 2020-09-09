@@ -1,9 +1,10 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { addRecipe } from '../actions/recipes'
+import { addRecipe, updateRecipe } from '../actions/recipes'
 import RecipeInputs from './RecipeInputs'
 import IngredientInputsContainer from '../ingredient/IngredientInputsContainer'
 import { Redirect } from 'react-router-dom'
+import IngredientInput from '../ingredient/IngredientInput'
 
 class RecipeForm extends React.Component {
     state = {
@@ -15,6 +16,20 @@ class RecipeForm extends React.Component {
         }]
     }
     redirect = false
+    componentDidMount(){
+        if (this.props.recipe) {
+            let ingredients = []
+            this.props.recipe.attributes.ingredients.forEach((ingredient, index) => {
+                let quantity = this.props.recipe.attributes.recipes_ingredients[index].quantity
+                ingredients.push({name: ingredient.name, quantity: quantity})
+            })
+            this.setState({
+                name: this.props.recipe.attributes.name,
+                instructions: this.props.recipe.attributes.instructions,
+                ingredients: ingredients
+            })
+        }
+    }
     handleRecipeChange = (event) => {
         let key = event.target.name
         let value = event.target.value
@@ -27,6 +42,7 @@ class RecipeForm extends React.Component {
         let key = event.target.name
         let value = event.target.value
         let i = parseInt(event.target.id.split("-")[2])
+        console.log("ingr change: ", {[key]: value}, i)
         this.setState((prevState) => {
             const ingrs = prevState.ingredients.map((ingr, j) => {
                 if (i === j){
@@ -40,6 +56,7 @@ class RecipeForm extends React.Component {
                 ingredients: ingrs
             }
         })
+        
     }
     handleAddIngredientInput = (event) => {
         event.preventDefault()
@@ -60,7 +77,9 @@ class RecipeForm extends React.Component {
     handleSubmit = (event) => {
         event.preventDefault()
         let id = this.props.user.id
-        this.props.dispatchedAddRecipe(this.state, id)
+        this.props.recipe 
+            ? this.props.dispatchedUpdateRecipe(this.state, id, this.props.recipe.id)
+            : this.props.dispatchedAddRecipe(this.state, id)
         this.redirect = true
         this.forceUpdate()
     }
@@ -71,14 +90,16 @@ class RecipeForm extends React.Component {
                 <form onSubmit={this.handleSubmit} autoComplete="off">
                     <h2>Create a new Recipe:</h2>
                     <RecipeInputs name={this.state.name} instructions={this.state.instructions} handleChange={this.handleRecipeChange}/>
-                    <IngredientInputsContainer 
-                        ingredients={this.state.ingredients} 
-                        handleChange={this.handleIngredientChange} 
-                        handleAdd={this.handleAddIngredientInput} 
-                        handleRemove={this.handleRemoveIngredientInput}
-                        readonly={false} 
-                    />
-                    <br/><input type="submit" value="Add Recipe"/>
+                    {this.state.ingredients.map((ingredient, index) => {
+                        return <IngredientInput 
+                            key={index} 
+                            id={index} 
+                            ingredient={ingredient}
+                            handleChange={this.handleIngredientChange}
+                            handleRemove={this.handleRemoveIngredientInput} />
+                    })}
+                    <button onClick={this.handleAddIngredientInput}>Add more Ingredients</button>
+                    <br/><input type="submit" value={this.props.recipe ? "Update Recipe" : "Add Recipe"}/>
                 </form>
         )
     }
@@ -88,7 +109,8 @@ const mSTP = (state) => {
 }
 const mDTP = (dispatcher) => {
     return {
-        dispatchedAddRecipe: (recipe, userID) => dispatcher(addRecipe(recipe, userID))
+        dispatchedAddRecipe: (recipe, userID) => dispatcher(addRecipe(recipe, userID)),
+        dispatchedUpdateRecipe: (recipe, userID, recipeID) => dispatcher(updateRecipe(recipe, userID, recipeID))
     }
 }
 
