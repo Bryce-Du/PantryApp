@@ -9,7 +9,6 @@ import {NavLink} from 'react-router-dom'
 
 class RecipesContainer extends React.Component {
     componentDidMount(){
-        console.log("rContainer props: ", this.props)
         this.props.dispatchedFetchUserRecipes(this.props.user.id)
     }
     
@@ -34,7 +33,7 @@ class RecipesContainer extends React.Component {
                         <RecipeForm />
                     </Route>
                     <Route 
-                        path="/recipes/:id" 
+                        exact path="/recipes/:id" 
                         render={(routerProps) => <RecipeShow 
                             {...routerProps} 
                             key={routerProps.match.params.id} 
@@ -44,6 +43,13 @@ class RecipesContainer extends React.Component {
                     <Route path="/recipes/makeable">
 
                     </Route>
+                    <Route 
+                        exact path="/recipes/:id/edit"
+                        render={(routerProps) => <RecipeForm
+                            {...routerProps}
+                            recipe={this.props.recipes.find(recipe => recipe.id === routerProps.match.params.id)}
+                        />}
+                    />
                 </Switch>
             </div>
         )
