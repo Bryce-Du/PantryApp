@@ -52,3 +52,19 @@ export const updateRecipe = (recipe, userID, recipeID) => {
         })
     }
 }
+export const deleteRecipe = (userID, recipeID) => {
+    return function (dispatch) {
+        dispatch({type: "PROCESSING"})
+        fetch(`http://localhost:3001/users/${userID}/recipes/${recipeID}`, {
+            method: "DELETE",
+            headers: {
+                'Content-Type': 'application/json',
+                'Accepts': 'application/json'
+            }
+        })
+        .then(res => res.json())
+        .then(recipe => {
+            dispatch({type: "DELETE_RECIPE", payload: recipe.data})
+        })
+    }
+}

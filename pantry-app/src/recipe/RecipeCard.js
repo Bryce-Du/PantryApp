@@ -13,6 +13,7 @@ export default function RecipeCard (props) {
         e.preventDefault()
         history.push(`/recipes/${props.recipe.id}/edit`)
     }
+    console.log(props)
     return (
         <div className="card">
             <h5 className="card-header">{props.recipe.attributes.name}</h5>
@@ -27,6 +28,7 @@ export default function RecipeCard (props) {
             </div>
             <div className="card-footer py-1">
                 <button onClick={handleEdit}>Edit</button>
+                <button id={`delete-recipe-${props.recipe.id}`} onClick={event => props.handleDelete(event)}>Delete</button>
             </div>
         </div>
     )

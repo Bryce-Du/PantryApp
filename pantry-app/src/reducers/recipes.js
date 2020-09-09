@@ -11,6 +11,8 @@ export default (state = {recipes: [], processing: false}, action) => {
         case "UPDATE_RECIPE":
             let removed = state.recipes.filter(recipe => recipe.id !== action.payload.id) // remove the old recipe and concat the updated one
             return {...state, recipes: removed.concat(action.payload), processing: false}
+        case "DELETE_RECIPE":
+            return {...state, recipes: state.recipes.filter(recipe => recipe.id !== action.payload.id), processing: false}
         default:
             return state 
     }

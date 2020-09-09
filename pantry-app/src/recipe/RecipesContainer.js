@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import { fetchUserRecipes } from '../actions/recipes'
+import { fetchUserRecipes, deleteRecipe } from '../actions/recipes'
 import RecipeCard from './RecipeCard'
 import RecipeForm from './RecipeForm'
 import RecipeShow from './RecipeShow'
@@ -10,6 +10,12 @@ import {NavLink} from 'react-router-dom'
 class RecipesContainer extends React.Component {
     componentDidMount(){
         this.props.dispatchedFetchUserRecipes(this.props.user.id)
+    }
+
+    handleDelete = (e) => {
+        e.preventDefault()
+        let recipeID = e.target.id.split("-")[2]
+        this.props.dispatchedDeleteRecipe(this.props.user.id, recipeID)
     }
     
     render(){
@@ -24,7 +30,7 @@ class RecipesContainer extends React.Component {
                             ? "fetching recipes, one moment"
                             : <div className="container">
                                 <div className="flex-row d-flex flex-wrap">
-                                    {this.props.recipes.map((recipe, index) => <div key={index} className="px-2"><RecipeCard key={index} recipe={recipe}/></div>)}
+                                    {this.props.recipes.map((recipe, index) => <div key={index} className="px-2"><RecipeCard key={index} recipe={recipe} handleDelete={this.handleDelete}/></div>)}
                                 </div>
                             </div>
                         }
@@ -65,7 +71,8 @@ const mSTP = (state) => {
 }
 const mDTP = (dispatcher) => {
     return {
-        dispatchedFetchUserRecipes: (userID) => dispatcher(fetchUserRecipes(userID))
+        dispatchedFetchUserRecipes: (userID) => dispatcher(fetchUserRecipes(userID)),
+        dispatchedDeleteRecipe: (userID, recipeID) => dispatcher(deleteRecipe(userID, recipeID))
     }
 }
 
