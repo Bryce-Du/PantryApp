@@ -35,3 +35,20 @@ export const addRecipe = (recipe, userID) => {
         })
     }
 }
+export const updateRecipe = (recipe, userID, recipeID) => {
+    return function (dispatch) {
+        dispatch({type: "PROCESSING"})
+        fetch(`http://localhost:3001/users/${userID}/recipes/${recipeID}`, {
+            method: "PATCH",
+            headers: {
+                'Content-Type': 'application/json',
+                'Accepts': 'application/json'
+            },
+            body: JSON.stringify({recipe})
+        })
+        .then(res => res.json())
+        .then(recipe => {
+            dispatch({type: "UPDATE_RECIPE", payload: recipe.data})
+        })
+    }
+}
