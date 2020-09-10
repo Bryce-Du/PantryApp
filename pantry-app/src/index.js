@@ -10,7 +10,6 @@ import rootReducer from './reducers/index'
 import { BrowserRouter as Router } from 'react-router-dom'
 
 export const BASE_URL = process.env.NODE_ENV === 'production' ? "https://agile-hamlet-86698.herokuapp.com/" : "http://localhost:3001"
-console.log(process.env.NODE_ENV)
 const store = createStore(rootReducer, applyMiddleware(thunk))
 
 ReactDOM.render(
