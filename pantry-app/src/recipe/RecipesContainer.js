@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import { fetchUserRecipes, deleteRecipe } from '../actions/recipes'
+import { fetchUserRecipes, deleteRecipe, fetchRecipes } from '../actions/recipes'
 import RecipeCard from './RecipeCard'
 import RecipeForm from './RecipeForm'
 import RecipeShow from './RecipeShow'
@@ -9,7 +9,11 @@ import {NavLink} from 'react-router-dom'
 
 class RecipesContainer extends React.Component {
     componentDidMount(){
-        this.props.dispatchedFetchUserRecipes(this.props.user.id)
+        if (this.props.cookbook) {
+            this.props.dispatchedFetchUserRecipes(this.props.user.id)
+        } else {
+            this.props.dispatchedFetchRecipes()
+        }
     }
 
     handleDelete = (e) => {
@@ -72,6 +76,7 @@ const mSTP = (state) => {
 const mDTP = (dispatcher) => {
     return {
         dispatchedFetchUserRecipes: (userID) => dispatcher(fetchUserRecipes(userID)),
+        dispatchedFetchRecipes: () => dispatcher(fetchRecipes()),
         dispatchedDeleteRecipe: (userID, recipeID) => dispatcher(deleteRecipe(userID, recipeID))
     }
 }
