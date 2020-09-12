@@ -18,7 +18,7 @@ class IngredientInputsContainer extends React.Component {
                 {this.props.readonly ? <IngredientSearch searchTerm={this.state.searchTerm} handleSearch={this.handleSearch} />: "" }
                 <h6>Add Ingredients:</h6>
                 {this.props.ingredients.map((ingredient, index) => {
-                        if (ingredient.name.toLowerCase().includes(this.state.searchTerm.toLowerCase())){ 
+                        if (ingredient.name && ingredient.name.toLowerCase().includes(this.state.searchTerm.toLowerCase())){ 
                             return <IngredientInput 
                                 key={index} 
                                 id={ingredient.id}

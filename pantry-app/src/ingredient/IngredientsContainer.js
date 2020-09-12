@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import { fetchIngredients, addUserIngredients } from '../actions/ingredients'
 import { Route, Switch, Redirect } from 'react-router-dom';
 import IngredientInputsContainer from './IngredientInputsContainer';
+import PantryInput from './PantryInput'
+import IngredientSearch from './IngredientSearch'
 
 class IngredientsContainer extends React.Component {
     state = {
@@ -10,7 +12,7 @@ class IngredientsContainer extends React.Component {
     }
     redirect = false
     componentDidMount(){
-        this.props.dispatchedFetchIngredients()
+        this.props.dispatchedFetchIngredients() 
     }
     handleChange = (e) => {
         let quantity = e.target.value
@@ -45,15 +47,21 @@ class IngredientsContainer extends React.Component {
             <div>
                 <Switch>
                     <Route exact path="/ingredients">
-                        {this.props.processing 
-                            ? "fetching Ingredients, one moment" 
-                            : <IngredientInputsContainer 
-                                ingredients={this.props.ingredients} 
-                                handleChange={this.handleChange}
-                                handleAdd={this.handleAdd}
-                                readonly={true}
-                            />
-                        }
+                        <IngredientSearch handleSearch={this.handleSearch}/>
+                        <table className="table table-bordered table-sm w-auto">
+                            <thead><tr><td className="col-sm-auto" align="right">Name:</td><td className="col-sm-auto">Quantity:</td></tr></thead>
+                            <tbody>{this.props.processing 
+                                ? "fetching Ingredients, one moment" 
+                                : this.props.ingredients.map(ingredient => {
+                                    return <PantryInput
+                                        key={ingredient.id}
+                                        ingredient={ingredient} 
+                                        handleChange={this.handleChange}
+                                    />
+                                })
+                            }</tbody>
+                        </table>
+                        <button onClick={this.handleAdd}>Add Items to Pantry</button>
                     </Route>
                     <Route 
                         path="/ingredients/:id"
