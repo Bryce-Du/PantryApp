@@ -39,3 +39,13 @@ export const addUserIngredients = (ingredients, userID) => {
         })
     }
 }
+export const searchIngredients = (searchTerm) => {
+    return function (dispatch) {
+        dispatch({type: "PROCESSING"})
+        fetch(`${BASE_URL}/ingredients/search/${searchTerm}`)
+        .then(res => res.json())
+        .then(ingredients => {
+            dispatch({type: "SEARCH_INGREDIENTS", payload: ingredients.data})
+        })
+    }
+}

@@ -10,13 +10,15 @@ class PantryContainer extends React.Component {
     }
     
     render(){
-        console.log(this.props)
+        console.log("pantry props: ", this.props)
         return(
-            <div>
-                {this.props.pantry.map(i => {
-                    let q = i.attributes.users_ingredients[0].quantity
-                    return <IngredientListLink key={i.id} ingredient={i.attributes} quantity={q}/>
-                })}
+            <div className="d-flex justify-content-left">
+                <ul className="list-group w-auto">
+                    {this.props.pantry.map(i => {
+                        let q = i.attributes.users_ingredients[0].quantity
+                        return <IngredientListLink key={i.id} ingredient={i.attributes} quantity={q}/>
+                    })}
+                </ul>
             </div>
         )
     }

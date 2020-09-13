@@ -4,6 +4,8 @@ export default (state = {ingredients: [], processing: false}, action) => {
             return {...state, ingredients: [...state.ingredients], processing: true}
         case "INDEX_INGREDIENTS":
             return {...state, ingredients: action.payload, processing: false}
+        case "SEARCH_INGREDIENTS":
+            return {...state, ingredients: action.payload, processing: false}
         default:
             return state 
     }
