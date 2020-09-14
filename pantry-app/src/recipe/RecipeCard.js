@@ -13,7 +13,6 @@ export default function RecipeCard (props) {
         e.preventDefault()
         history.push(`/recipes/${props.recipe.id}/edit`)
     }
-    console.log(props)
     return (
         <div className="card">
             <h5 className="card-header">{props.recipe.attributes.name}</h5>

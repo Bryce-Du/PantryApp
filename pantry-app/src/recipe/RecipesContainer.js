@@ -53,6 +53,16 @@ class RecipesContainer extends React.Component {
                     <Route path="/recipes/makeable">
 
                     </Route>
+                    <Route path="/users/:user_id/recipes">
+                        {this.props.processing 
+                            ? "fetching recipes, one moment"
+                            : <div className="container">
+                                <div className="flex-row d-flex flex-wrap">
+                                    {this.props.recipes.map((recipe, index) => <div key={index} className="px-2"><RecipeCard key={index} recipe={recipe} handleDelete={this.handleDelete}/></div>)}
+                                </div>
+                            </div>
+                        }
+                    </Route>
                     <Route 
                         exact path="/recipes/:id/edit"
                         render={(routerProps) => <RecipeForm
