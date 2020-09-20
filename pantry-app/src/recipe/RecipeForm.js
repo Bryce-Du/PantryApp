@@ -16,7 +16,7 @@ class RecipeForm extends React.Component {
     }
     redirect = false
     componentDidMount(){
-        if (this.props.recipe) {
+        if (this.props.recipe) { 
             let ingredients = []
             this.props.recipe.attributes.ingredients.forEach((ingredient, index) => {
                 let quantity = this.props.recipe.attributes.recipes_ingredients[index].quantity
@@ -41,7 +41,6 @@ class RecipeForm extends React.Component {
         let key = event.target.name
         let value = event.target.value
         let i = parseInt(event.target.id.split("-")[2])
-        console.log("ingr change: ", {[key]: value}, i)
         this.setState((prevState) => {
             const ingrs = prevState.ingredients.map((ingr, j) => {
                 if (i === j){
@@ -62,7 +61,7 @@ class RecipeForm extends React.Component {
         this.setState((pS)=>({
             ...this.state,
             ingredients: pS.ingredients.concat({name: "", quantity: ""})
-        }))        
+        }))
     }
     handleRemoveIngredientInput = (event) => {
         event.preventDefault()
@@ -95,7 +94,7 @@ class RecipeForm extends React.Component {
                             id={index} 
                             ingredient={ingredient}
                             handleChange={this.handleIngredientChange}
-                            handleRemove={this.handleRemoveIngredientInput} />
+                            handleRemove={this.handleRemoveIngredientInput}/>
                     })}
                     <button onClick={this.handleAddIngredientInput}>Add more Ingredients</button>
                     <br/><input type="submit" value={this.props.recipe ? "Update Recipe" : "Add Recipe"}/>

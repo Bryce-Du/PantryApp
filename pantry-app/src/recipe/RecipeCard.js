@@ -4,19 +4,20 @@ import { useHistory } from 'react-router-dom'
 
 export default function RecipeCard (props) {
     const history = useHistory();
-    
-    const handleClick = (e) => {
-        e.preventDefault()
-        history.push(`/recipes/${props.recipe.id}`)
-    }
+    // const handleClick = (e) => {
+    //     e.preventDefault()
+    //     history.push(`/recipes/${props.recipe.id}`)
+    // }
     const handleEdit = (e) => {
         e.preventDefault()
         history.push(`/recipes/${props.recipe.id}/edit`)
-    }
+    } 
+    
     return (
         <div className="card">
             <h5 className="card-header">{props.recipe.attributes.name}</h5>
-            <div className="card-body py-1" onClick={handleClick}>
+            {/* <div className="card-body py-1" onClick={handleClick}> */}
+            <div className="card-body py-1">
                 <p>{props.recipe.attributes.instructions}</p>
                 <ul className="list-group py-1">Ingredients:
                     {props.recipe.attributes.ingredients.map(ingredient => {

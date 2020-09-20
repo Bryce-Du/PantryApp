@@ -12,11 +12,14 @@ class AppBody extends React.Component {
                 <Route exact path="/">
                     {this.props.user ? <div><p>dashboard for {this.props.user.username}</p></div> : ""}
                 </Route>
-                <Route path="/recipes">
-                    {this.props.user ? <RecipesContainer cookbook={false}/> : <p>Please log in to see Recipes.</p>}
+                <Route exact path="/recipes">
+                    {this.props.user ? <RecipesContainer cookbook={false} makeable={false}/> : <p>Please log in to see Recipes.</p>}
                 </Route>
                 <Route path="/users/:id/recipes">
-                    {this.props.user ? <RecipesContainer cookbook={true}/> : <p>Please log in to see Recipes.</p>}
+                    {this.props.user ? <RecipesContainer cookbook={true} makeable={false}/> : <p>Please log in to see Recipes.</p>}
+                </Route>
+                <Route exact path="/recipes/makeable">
+                    {this.props.user ? <RecipesContainer cookbook={false} makeable={true}/> : <p>Please log in to see Recipes.</p>}
                 </Route>
                 <Route path="/ingredients">
                     {this.props.user ? <IngredientsContainer /> : <p>Please log in to see Ingredients.</p>}

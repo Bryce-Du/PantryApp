@@ -36,6 +36,7 @@ export const addRecipe = (recipe, userID) => {
             dispatch({type: "ADD_RECIPE", payload: recipe.data})
         })
     }
+
 }
 export const updateRecipe = (recipe, userID, recipeID) => {
     return function (dispatch) {
@@ -67,6 +68,18 @@ export const deleteRecipe = (userID, recipeID) => {
         .then(res => res.json())
         .then(recipe => {
             dispatch({type: "DELETE_RECIPE", payload: recipe.data})
+        })
+    }
+}
+export const fetchMakeable = (userID) => {
+    return function (dispatch) {
+        console.log(`${BASE_URL}/users/${userID}/recipes/makeable`)
+        dispatch({type: "PROCESSING"})
+        fetch(`${BASE_URL}/users/${userID}/recipes/makeable`) 
+        .then(res => res.json())
+        .then(recipes => {
+            console.log("fetch request results: ", recipes)
+            dispatch({type: "MAKEABLE_RECIPES", payload: recipes})
         })
     }
 }

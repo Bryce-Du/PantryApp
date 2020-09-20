@@ -10,7 +10,6 @@ class PantryContainer extends React.Component {
     }
     
     render(){
-        console.log("pantry props: ", this.props)
         return(
             <div className="d-flex justify-content-left">
                 <ul className="list-group w-auto">

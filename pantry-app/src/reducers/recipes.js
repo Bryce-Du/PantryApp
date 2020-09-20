@@ -1,6 +1,5 @@
 export default (state = {recipes: [], processing: false}, action) => {
     //let recipe;
-
     switch (action.type){
         case "PROCESSING":
             return {...state, recipes: [...state.recipes], processing: true}

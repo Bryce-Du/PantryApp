@@ -1,6 +1,6 @@
 import {BASE_URL} from '../index.js'
 
-export const fetchIngredients = () => {
+export const fetchIngredients = (limit) => {
     return function (dispatch) {
         dispatch({type: "PROCESSING"})
         fetch(`${BASE_URL}/ingredients`)
@@ -16,7 +16,6 @@ export const fetchUserIngredients = (userID) => {
         fetch(`${BASE_URL}/users/${userID}/ingredients`)
         .then(res => res.json())
         .then(ingredients => {
-            console.log("fetch request returns:", ingredients.data)
             dispatch({type: "INDEX_PANTRY", payload: ingredients.data})
         })
     }
@@ -34,7 +33,6 @@ export const addUserIngredients = (ingredients, userID) => {
         })
         .then(res => res.json())
         .then(ingredient => {
-            console.log(ingredient.data)
             dispatch({type: "INDEX_PANTRY", payload: ingredient.data})
         })
     }

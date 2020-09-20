@@ -78,6 +78,7 @@ class IngredientsContainer extends React.Component {
                             </table>
                         </div>
                         <button onClick={this.handleAdd}>Add Items to Pantry</button>
+                        
                     </Route>
                     <Route 
                         path="/ingredients/:id"

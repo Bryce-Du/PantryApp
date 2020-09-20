@@ -1,4 +1,5 @@
 import React from 'react'
+// import { Async } from 'react-select-search'
 
 class IngredientInput extends React.Component {
     render(){
